@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+//import logo from './logo.svg';
+import "./App.css";
+import { Outlet, Link } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <nav
+        style={{
+          
+          borderBottom: "solid 1px",
+          paddingBottom: "1rem",
+        }}
+      >
+        <div className="menu">
+        <Link to="/studentreg">Students</Link>{" "}
+        <Link to="/courses">Courses</Link>{" "}
+        <Link to="/financialreport">financial Report</Link>{" "}
+        </div>
+      </nav>
+
+      {/* <Outlet> swaps between the two child routes (<Invoices> and <Expenses>)! */}
+
+      <Outlet />
     </div>
   );
 }
