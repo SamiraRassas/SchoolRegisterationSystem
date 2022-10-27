@@ -13,7 +13,8 @@ import Unregistered from "./components/unregistered";
 import StudentReg from "./components/studentReg";
 import StudentRegParams from "./components/studentRegParams";
 import CoursesParams from "./components/coursesParams";
-import {AddNewStudent}  from "./components/addNewStudent";
+import { AddNewStudent } from "./components/addNewStudent";
+import { Authentication } from "./useref/authentication";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -21,16 +22,16 @@ root.render(
     <Routes>
       <Route path="/" element={<App />}>
         <Route path="courses" element={<Courses />}>
-        <Route path=":courseId" element={<CoursesParams />} />
+          <Route path=":courseId" element={<CoursesParams />} />
         </Route>
         <Route path="financialreport/" element={<FinancialReport />}>
-         <Route path="register" element={<Registered />}/>
-        <Route path="unregister" element={<Unregistered />}/>
+          <Route path="register" element={<Registered />} />
+          <Route path="unregister" element={<Unregistered />} />
         </Route>
         <Route path="studentreg" element={<StudentReg />}>
           <Route path=":studentId" element={<StudentRegParams />} />
         </Route>
-        <Route path="addnewstudent" element={<AddNewStudent />}/>
+        <Route path="addnewstudent" element={<AddNewStudent />} />
         <Route
           path="*"
           element={
@@ -42,6 +43,23 @@ root.render(
       </Route>
     </Routes>
   </BrowserRouter>
+
+  // <BrowserRouter>
+  //   <Routes>
+  //     <Route path="/" element={<App />}>
+  //       <Route path="authentication" element={<Authentication />}>
+  //       </Route>
+  //       <Route
+  //         path="*"
+  //         element={
+  //           <main style={{ padding: "1rem" }}>
+  //             <p>There's nothing here!</p>
+  //           </main>
+  //         }
+  //       />
+  //     </Route>
+  //   </Routes>
+  // </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function
