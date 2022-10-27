@@ -1,6 +1,7 @@
-import { getStudents } from "../data/student";
-import { Outlet, Link, Router ,Route,Routes} from "react-router-dom";
+import { Outlet, Link, Router, Route, Routes } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import {useParams} from "react-router-dom"
+import "./style.css";
 
 export default function StudentReg() {
   const [studentlist, setStudentlist] = useState([]);
@@ -10,53 +11,52 @@ export default function StudentReg() {
     })
       .then((response) => response.json())
       .then((data) => {
-        let Data = JSON.stringify(data);
+        //let Data = JSON.stringify(data);
         // setStudentlist(Data);
-        let map = new Map(Object.entries(data));
-        console.log(map);
-        setStudentlist(map);
+        // let map = new Map(Object.entries(data));
+        // console.log(data);
+        setStudentlist(data);
       });
   };
   useEffect(() => {
     fetchData();
   }, []);
 
-  // console.log(`>>>+ ${studentlist}`);
 
-  studentlist.forEach((student) => {
-    console.log(student.name);
-  });
+  const updateData = async (props) => {
+    const params = {
+      id: 123
+    }
+    const studentId = props.studentid;
+    await fetch(`http://localhost:3001/student/${studentId}`, {
+      method: "PUT",
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8' // Indicates the content 
+       },
+       body: JSON.stringify(params) // We send data in JSON format
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(`data ${data}`);
+        setStudentlist(data);
+      });
+  };
   return (
-    // <>
-    // <Routes>
-    //   <li>
-    //     <Link to={`/studentreg/`}>hello</Link>
-    //   </li>
-    //      <Route path="/studentreg" component={StudentReg}/>
-    //      </Routes>
-    // </>
-    <div style={{ display: "flex" }}>
-      <nav
-        style={{
-          borderRight: "solid 1px",
-          padding: "1rem",
-        }}
-      >
-        {studentlist.forEach((student) => {
-          <Link
-            style={{ display: "block", margin: "1rem 0" }}
-            to={`/studentreg/${student.id}`}
-            key={student.id}
-          >
-            {student.name}
-          </Link>
-        })}
-          <button>DELETE</button>
-          <button>UPDATE</button>
-        <Link
-          style={{ display: "block", margin: "1rem 0", fontSize: "20px" }}
-          to={`/addnewstudent`}
-        >
+    <div className="all">
+      <nav id="navv">
+        {studentlist.map((student) => (
+          <div className="studentrow">
+            <Link id="link" to={`/studentreg/${student.id}`} key={student.id}>
+              {student.name}
+            </Link>
+            <button id="deletebtn">
+              DELETE
+            </button>
+            <button id="updatebtn" onClick={()=>updateData()}>UPDATE</button>
+          </div>
+        ))}
+
+        <Link id="addlink" to={`/addnewstudent`}>
           Add New Student
         </Link>
       </nav>
